@@ -1,1 +1,0 @@
-# openstack-health-api-docker
