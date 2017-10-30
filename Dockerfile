@@ -1,16 +1,16 @@
 # for API server
 # TODO: Someone may want to make this more stable distro.
-FROM opensuse:tumbleweed
+FROM opensuse:latest
 
 WORKDIR /app
 RUN zypper install -y \
     python \
     python-devel \
-    python2-pip \
+    python-pip \
     git \
   && pip install virtualenv \
-  && rm -rf /var/cache/zypp/* \
   && zypper install -y -t pattern devel_basis \
+  && rm -rf /var/cache/zypp/* \
   && git clone https://github.com/openstack/openstack-health
 WORKDIR /app/openstack-health
 
@@ -21,7 +21,10 @@ RUN virtualenv /venv \
   && /venv/bin/pip install uwsgi
 
 # FIXME: This should be changeable by users, not a fixed value.
-COPY ./openstack-health.conf /etc/openstack-health.conf
+RUN mkdir -p /app/etc
+COPY ./etc/openstack-health.conf /app/etc/openstack-health-api.conf
+COPY ./etc/uwsgi.ini .
+RUN ln -s /app/etc/openstack-health-api.conf /etc/openstack-health.conf
 EXPOSE 8080
 # FIXME: Need to accept to change config files like for connecting to a DB server
-CMD ["/venv/bin/uwsgi", "-s", "/tmp/uwsgi.sock", "--wsgi-file", "openstack_health/api.py", "--callable", "app", "--pyargv", "etc/openstack-health-api.conf", "--http", ":8080"]
+CMD ["/venv/bin/uwsgi", "--ini", "uwsgi.ini"]
