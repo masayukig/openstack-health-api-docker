@@ -25,6 +25,6 @@ RUN mkdir -p /app/etc
 COPY ./etc/openstack-health.conf /app/etc/openstack-health-api.conf
 COPY ./etc/uwsgi.ini .
 RUN ln -s /app/etc/openstack-health-api.conf /etc/openstack-health.conf
-EXPOSE 8080
+EXPOSE 5000
 # FIXME: Need to accept to change config files like for connecting to a DB server
 CMD ["/venv/bin/uwsgi", "--ini", "uwsgi.ini"]
