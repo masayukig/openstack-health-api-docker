@@ -24,6 +24,8 @@ RUN virtualenv /venv \
 RUN mkdir -p /app/etc
 COPY ./etc/openstack-health.conf /app/etc/openstack-health-api.conf
 COPY ./etc/uwsgi.ini .
+# FIXME: We shouldn't do like this. However, the current implementation
+# of o-h can only read /etc/openstack-health.conf with uwsgi.
 RUN ln -s /app/etc/openstack-health-api.conf /etc/openstack-health.conf
 EXPOSE 5000
 # FIXME: Need to accept to change config files like for connecting to a DB server
