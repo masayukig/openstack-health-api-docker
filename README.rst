@@ -1,9 +1,20 @@
 openstack-health-api-docker
 ===========================
 
+How to build
+------------
+
+You can build this docker image like below::
+
+  $ docker build -t masayukig/openstack-health-api:latest .
+
+Or if you'd like to update the openstack-health code base, you can do it::
+
+  $ docker build --no-cache -t masayukig/openstack-health-api:latest .
+
 How to use
 ----------
 
 You can specify the listen port like below::
 
-  $ docker run -d -p 5000:5000 --rm masayukig/openstack-health-frontend
+  $ docker run -d -p 5000:5000 --rm masayukig/openstack-health-api
