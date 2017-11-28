@@ -1,5 +1,4 @@
 # for API server
-# TODO: Someone may want to make this more stable distro.
 FROM opensuse:latest
 
 WORKDIR /app
@@ -20,13 +19,8 @@ RUN virtualenv /venv \
   && /venv/bin/pip install -r /app/openstack-health/requirements.txt \
   && /venv/bin/pip install uwsgi
 
-# FIXME: This should be changeable by users, not a fixed value.
 RUN mkdir -p /app/etc
 COPY ./etc/openstack-health.conf /app/etc/openstack-health-api.conf
-COPY ./etc/uwsgi.ini .
-# FIXME: We shouldn't do like this. However, the current implementation
-# of o-h can only read /etc/openstack-health.conf with uwsgi.
-RUN ln -s /app/etc/openstack-health-api.conf /etc/openstack-health.conf
+COPY ./etc/uwsgi.ini /app/etc/uwsgi.ini
 EXPOSE 5000
-# FIXME: Need to accept to change config files like for connecting to a DB server
-CMD ["/venv/bin/uwsgi", "--ini", "uwsgi.ini"]
+CMD ["/venv/bin/uwsgi", "--ini", "/app/etc/uwsgi.ini"]
