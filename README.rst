@@ -1,6 +1,13 @@
 openstack-health-api-docker
 ===========================
 
+.. image::
+    https://img.shields.io/docker/build/masayukig/openstack-health-api.svg
+    :target: https://hub.docker.com/r/masayukig/openstack-health-api/builds/
+.. image::
+    https://img.shields.io/docker/automated/masayukig/openstack-health-api.svg
+    :target: https://hub.docker.com/r/masayukig/openstack-health-api/
+
 How to build
 ------------
 
