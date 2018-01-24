@@ -20,7 +20,7 @@ RUN virtualenv /venv \
   && /venv/bin/pip install uwsgi
 
 RUN mkdir -p /app/etc
-COPY ./etc/openstack-health.conf /app/etc/openstack-health-api.conf
+COPY ./etc/openstack-health.conf /app/etc/openstack-health.conf
 COPY ./etc/uwsgi.ini /app/etc/uwsgi.ini
 EXPOSE 5000
 CMD ["/venv/bin/uwsgi", "--ini", "/app/etc/uwsgi.ini"]
